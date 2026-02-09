@@ -21,7 +21,7 @@ module "asg" {
     source = "../../modules/asg"
     
     name                 = "swe-project-${var.env}-asg"
-    ami_id               = var.ec2.ami_id
+    ami_id               = data.aws_ami.ubuntu.id
     instance_type        = var.ec2.instance_type
     min_size             = var.ec2.min_size
     max_size             = var.ec2.max_size
@@ -32,4 +32,20 @@ module "asg" {
     target_group_arn     = module.alb.target_group_arn
 
     container_port       = 3000
+}
+
+data "aws_ami" "ubuntu" {
+    most_recent = true
+
+    filter {
+        name   = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+
+    filter {
+        name   = "virtualization-type"
+        values = ["hvm"]
+    }
+
+    owners = ["099720109477"] # Canonical
 }

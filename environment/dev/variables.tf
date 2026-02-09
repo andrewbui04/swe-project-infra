@@ -15,8 +15,6 @@ variable "vpc" {
 variable "ec2" {
     type = object({
         instance_type    = string
-        ami_id           = string
-        key_name         = string
         min_size         = number
         max_size         = number
         desired_capacity = number

@@ -1,6 +1,6 @@
 resource "aws_security_group" "asg_sg" {
     name        = "${var.name}-sg"
-    description = "Security group for ASG instances"
+    description = "Security group for EC2 instances created from ASG"
     vpc_id      = var.vpc_id
 
     ingress {
