@@ -27,6 +27,13 @@ resource "aws_launch_template" "this" {
     image_id      = var.ami_id
     instance_type = var.instance_type
 
+    user_data = base64encode(templatefile("${path.module}/user_data.sh", {
+        docker_username = var.docker_username
+        docker_password = var.docker_password
+        docker_image    = var.docker_image
+        container_port  = var.container_port
+    }))
+
     network_interfaces {
         associate_public_ip_address = false
         security_groups             = [aws_security_group.asg_sg.id]

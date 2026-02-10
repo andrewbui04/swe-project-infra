@@ -22,5 +22,21 @@ variable "ec2" {
   
 }
 
+variable "docker_username" {
+    description = "Docker Hub username"
+    type        = string
+    sensitive   = true
+}
+
+variable "docker_password" {
+    description = "Docker Hub password or token"
+    type        = string
+    sensitive   = true
+}
+
+variable "docker_image" {
+    description = "Docker image with tag"
+    type        = string
+}
 
 

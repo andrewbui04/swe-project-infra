@@ -48,3 +48,19 @@ variable "container_port" {
     description = "The port on which the container is listening"
     type        = number
 }
+
+variable "docker_username" {
+    description = "The Docker registry username"
+    type        = string 
+}
+
+variable "docker_password" {
+    description = "The Docker registry password"
+    type        = string
+    sensitive   = true
+}
+
+variable "docker_image" {
+    description = "The Docker image to deploy"
+    type        = string
+}
