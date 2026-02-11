@@ -32,6 +32,7 @@ module "asg" {
     target_group_arn     = module.alb.target_group_arn
 
     container_port       = 3000
+    alb_security_group_id = module.alb.security_group_id
 
     docker_username      = var.docker_username
     docker_password      = var.docker_password
