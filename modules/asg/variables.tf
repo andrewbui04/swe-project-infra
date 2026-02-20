@@ -49,6 +49,11 @@ variable "container_port" {
     type        = number
 }
 
+variable "alb_security_group_id" {
+    description = "Security group ID of the ALB"
+    type        = string
+}
+
 variable "docker_username" {
     description = "The Docker registry username"
     type        = string 
@@ -64,3 +69,4 @@ variable "docker_image" {
     description = "The Docker image to deploy"
     type        = string
 }
+

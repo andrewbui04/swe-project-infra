@@ -8,6 +8,15 @@ resource "aws_security_group" "asg_sg" {
         to_port     = var.container_port
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
+        security_groups = [var.alb_security_group_id]  # Allow from ALB'
+    }
+
+     # Allow SSH from bastion/your IP (change 0.0.0.0/0 to your IP for security)
+    ingress {
+        from_port   = 22
+        to_port     = 22
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]  
     }
 
     egress {
@@ -26,8 +35,10 @@ resource "aws_launch_template" "this" {
     name_prefix   = "${var.name}-"
     image_id      = var.ami_id
     instance_type = var.instance_type
+    key_name = "swe-project-debug"
 
-    user_data = base64encode(templatefile("${path.module}/user_data.sh", {
+    user_data = base64encode(templatefile("${path.module}/user_data.sh", 
+    {
         docker_username = var.docker_username
         docker_password = var.docker_password
         docker_image    = var.docker_image
